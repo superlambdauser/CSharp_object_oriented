@@ -8,26 +8,22 @@ using Monopoly.Enums;
 
 namespace Monopoly.Models
 {
-    internal class TileProperty
+    internal class TerrainTile : Tile
     {
-        #region var & properties
-        private string? _name;
+        //private string? _name;
+        //public string Name
+        //{
+        //    get
+        //    {
+        //        return _name;
+        //    }
+        //    private set
+        //    {
+        //        _name = value;
+        //    }
+        //}
+        
         private TileColor _color;
-        private int _price;
-        private bool _isMortgaged;
-        private Player? _owner;
-
-        public string? Name
-        {
-            get
-            {
-                return _name;
-            }
-            private set
-            {
-                _name = value;
-            }
-        }
         public TileColor Color
         {
             get
@@ -39,6 +35,8 @@ namespace Monopoly.Models
                 _color = value;
             }
         }
+        
+        private int _price;
         public int Price
         {
             get
@@ -50,6 +48,8 @@ namespace Monopoly.Models
                 if (value > 0) _price = value;
             }
         }
+
+        private bool _isMortgaged;
         public bool IsMortgaged
         {
             get
@@ -61,6 +61,7 @@ namespace Monopoly.Models
                 _isMortgaged = value;
             }
         }
+        private Player? _owner;
         public Player? Owner
         {
             get
@@ -72,14 +73,11 @@ namespace Monopoly.Models
                 _owner = value;
             }
         }
-        #endregion
 
 
-        #region methods
-        #region constructors
-        public TileProperty(string name, TileColor color, int price)
+        //ctor
+        public TerrainTile(string name, TileColor color, int price) : base(name)
         {
-            Name = name;
             Color = color;
             Price = price;
             // ↓ default values for bool = false & for Owner = null : no need to specify them
@@ -87,7 +85,8 @@ namespace Monopoly.Models
             //Owner = null;
         }
 
-        #endregion
+
+        //methods
         public void Buy(Player buyer)
         {
             if ((Owner == null || IsMortgaged) && buyer != null && buyer.Account >= Price)
@@ -100,6 +99,6 @@ namespace Monopoly.Models
                 }
             }
         }
-        #endregion
+
     }
 }

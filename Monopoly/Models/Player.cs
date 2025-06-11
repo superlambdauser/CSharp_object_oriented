@@ -42,7 +42,7 @@ namespace Monopoly.Models
                 }
             }
         }
-        public List<TileProperty> RealEstates
+        public List<TerrainTile> RealEstates
         {
             get; // autoproperty -> returns the property's value.
             // no private set here because it implies you may reset the whole array (not just its content)
@@ -62,7 +62,7 @@ namespace Monopoly.Models
             Pawn = pawn;
             Account = 1500;
             Position = 0;
-            RealEstates = new List<TileProperty>();
+            RealEstates = new List<TerrainTile>();
         }
 
         #endregion
@@ -107,7 +107,7 @@ namespace Monopoly.Models
             }
         }
 
-        public void AddRealEstate(TileProperty tile)
+        public void AddRealEstate(TerrainTile tile)
         {
             if (tile != null && this == tile.Owner)
             {
@@ -123,7 +123,7 @@ namespace Monopoly.Models
             return left;
         }
 
-        public static List<TileProperty> operator +(Player left, TileProperty right)
+        public static List<TerrainTile> operator +(Player left, TerrainTile right)
         {
             right.Buy(left);
             left.AddRealEstate(right);

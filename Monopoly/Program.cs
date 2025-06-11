@@ -10,22 +10,22 @@ namespace Monopoly
         static void Main(string[] args)
         {
             // Create game & boardgame (co-dependants)
-            TileProperty[] board =
+            TerrainTile[] board =
             {
-                new TileProperty("Patio", TileColor.Brown, 20),
-                new TileProperty("Accueil", TileColor.Brown, 23),
-                new TileProperty("Ascenceur droit", TileColor.LightBlue, 26),
-                new TileProperty("Ascenceur gauche", TileColor.LightBlue, 26),
-                new TileProperty("Toilette RDC", TileColor.LightBlue, 30),
-                new TileProperty("Couloir 4ième étage", TileColor.Violet, 32),
-                new TileProperty("Couloir 5ième étage", TileColor.Violet, 32),
-                new TileProperty("Toilette 5ième étage", TileColor.Violet, 38),
-                new TileProperty("Classe des WAD", TileColor.Orange, 42),
-                new TileProperty("Classe des WEB", TileColor.Orange, 42),
-                new TileProperty("Classe des Games", TileColor.Orange, 48),
-                new TileProperty("Bureau Sonia", TileColor.DarkBlue, 26),
-                new TileProperty("Bureau Nicole", TileColor.DarkBlue, 26),
-                new TileProperty("Bureau Laure", TileColor.DarkBlue, 30),
+                new TerrainTile("Patio", TileColor.Brown, 20),
+                new TerrainTile("Accueil", TileColor.Brown, 23),
+                new TerrainTile("Ascenceur droit", TileColor.LightBlue, 26),
+                new TerrainTile("Ascenceur gauche", TileColor.LightBlue, 26),
+                new TerrainTile("Toilette RDC", TileColor.LightBlue, 30),
+                new TerrainTile("Couloir 4ième étage", TileColor.Violet, 32),
+                new TerrainTile("Couloir 5ième étage", TileColor.Violet, 32),
+                new TerrainTile("Toilette 5ième étage", TileColor.Violet, 38),
+                new TerrainTile("Classe des WAD", TileColor.Orange, 42),
+                new TerrainTile("Classe des WEB", TileColor.Orange, 42),
+                new TerrainTile("Classe des Games", TileColor.Orange, 48),
+                new TerrainTile("Bureau Sonia", TileColor.DarkBlue, 26),
+                new TerrainTile("Bureau Nicole", TileColor.DarkBlue, 26),
+                new TerrainTile("Bureau Laure", TileColor.DarkBlue, 30),
             };
 
             Game monopoly = new Game(board);
@@ -42,13 +42,16 @@ namespace Monopoly
             // For each player, ask data :
             do
             {
+                // Get name :
                 string playerName;
+
                 do
                 {
                     Console.WriteLine("What's you name?");
                     playerName = Console.ReadLine();
                 } while (playerName == null);
 
+                // Choose pawn
                 Console.WriteLine($"What pawn do you want to choose, {playerName} ?");
                 string[] pawnList = Enum.GetNames<Pawn>();
 
@@ -58,28 +61,33 @@ namespace Monopoly
                 }
 
                 string userInput;
+                
                 do userInput = Console.ReadLine();
                 while (userInput == null);
                 Pawn playerPawnChoice = Enum.Parse<Pawn>(userInput);
 
+                // Add player to the game :
                 monopoly.AddPlayer(userInput, playerPawnChoice);
             } while (monopoly.Players.Length < playerNumber);
+
 
             // Play, count rounds & keep tracks :
             int roundPlayer = 0;
 
-            while (roundPlayer < roundsNumber)
+            while (roundPlayer < roundsNumber) // while game has not exceeded max game rounds
             {
-                Player currentPlayer = monopoly.Players[roundPlayer % monopoly.Players.Length];
-                TileProperty currentTile = monopoly[currentPlayer.Position];
+                // Get who's turn it is & where they are :
+                Player currentPlayer = monopoly.Players[roundPlayer % monopoly.Players.Length]; // modulo result will always correspond to player's index
+                TerrainTile currentTile = monopoly[currentPlayer.Position];
 
                 // Round treatment :
                 Console.WriteLine($"{currentPlayer.Name}'s turn. They are with pawn {currentPlayer.Pawn} is on the tile n°{currentTile.Name}.\n Press enter to roll the dice.");
                 Console.ReadLine();
 
-                bool playAgain = currentPlayer.Move(diceNumber);
-                currentTile = monopoly[currentPlayer.Position];
+                bool playAgain = currentPlayer.Move(diceNumber); // make the player moove & keep track of an eventual double roll
+                currentTile = monopoly[currentPlayer.Position]; // update current tile
 
+                // Keep playing while player rolls doubles :
                 while (playAgain)
                 {
                     Console.WriteLine("Great! Double!");
@@ -89,7 +97,8 @@ namespace Monopoly
                 }
 
                 Console.WriteLine($"Player {currentPlayer.Name} with pawn {currentPlayer.Pawn} is on the tile n°{currentTile.Name}.");
-                roundPlayer++;
+                
+                roundPlayer++; 
             }
 
         }
