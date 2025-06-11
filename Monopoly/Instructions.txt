@@ -1,0 +1,94 @@
+﻿P25 :
+1. Créer une énumération « Pions » qui aura pour valeurs : Voiture, Cuirasse, Chien, Chapeau, Fer, Dino, DeACoudre, Brouette, Chaussure
+2. Créer une classe statique « De » qui devra implémenter
+	◼ Les variables membres :
+		◼ valeurMin (int)
+		◼ valeurMax (int)
+		◼ rng (Random)
+	◼ La méthode publique :
+		◼ int[ ] Lancer(int nbDes) – Permet de lancer des dés, nbDes indiquant le nombre de dés. La valeur de retour correspond aux résultats de tout les dés.
+3. Créer une classe « Joueur » qui devra implémenter
+	◼ Les variables membres :
+		◼ nom (string)
+		◼ pion (Pions)
+		◼ position (int) – Position sur le plateau de jeu
+	◼ La méthode publique :
+		◼ bool Avancer() – Le joueur lance deux dés et avance de la quantité de cases équivalant au total des dés. Indique en retour si le joueur a obtenu un double.
+-------------------------------------
+P 40 :
+1. Modifier la classe statique « De » pour que ses variables soient privées et qui devra implémenter
+	◼ Les propriétés publiques :
+		 ValeurMin (int) – doit être supérieur à 0 et si la valeur est supérieur ou égale à la variable valeurMax, alors l’augmente à la même valeur + 1
+		◼ ValeurMax (int) – doit être supérieur à 1 et si la valeur est inférieur ou égale à la variable valeurMin, alors la diminue à la même valeur – 1
+2. Modifier la classe « Joueur » pour que ses variables soient remplacées par des auto-propriétés, sauf pour la variable « position » et implémenter
+	◼ Les propriétés publiques :
+		◼ Position (int) – Lecture seule
+		◼ Solde (int) – Lecture seule
+-------------------------------------
+P 48 :
+1.Créer une énumération « Couleurs » qui aura pour valeurs : 
+Marron, BleuCiel, Violet, Orange, Rouge, Jaune, Vert, Bleu
+2. Créer la classe « CasePropriete » qui devra implémenter
+	◼ Les propriétés publiques :
+		◼ Nom (string) – Lecture seule
+		◼ Couleur (Couleurs) – Lecture seule
+		◼ Prix (int) – Lecture seule
+		◼ EstHypotequee (bool) – Lecture seule
+		◼ Proprietaire (Joueur) – Lecture seule
+	◼ Un constructeur qui initialise les propriétés : 
+		- Nom, Couleur, Prix par des paramètres;
+		- EstHypotequee à false et Proprietaire à null.
+	◼ Les méthodes publiques :
+		◼ void Acheter (acheteur Joueur) 
+			– Permet au joueur d’acheter la propriété, seulement si celui-ci a un solde suffisant. 
+			Si c’est le cas, le joueur doit payer et devenir le propriétaire. 
+			(Cette dernière fonctionnalité dépend des modifications et ajouts de la page suivante)
+-------------------------------------
+P49 :
+1. Modifier la classe « Joueur » pour qu’elle implémente
+	◼ La variable privée :
+		◼ _proprietes (List<CasePropriete>)
+	◼ La propriété publique :
+		◼ Proprietes (CasePropriete[]) – Lecture seule
+	◼ Un constructeur qui initialise les propriétés : 
+		Nom, Pion par des paramètres; Solde à 1500, Position à 0 et initialiser une liste vide pour Proprietes.
+	◼ Les méthodes publiques :
+		◼ void EtrePaye (int montant) – Permet d’ajouter un montant au Solde du Joueur
+		◼ void Payer (int montant) – Permet de diminuer le solde du Joueur d’un montant renseigné en paramètre. Le Solde ne peut pas atteindre une valeur en dessous de 0.
+		◼ void AjouterPropriete (propriete casePropriete) – Permet d’ajouter la propriété dans la liste Proprietes seulement si celle-ci a comme propriétaire le joueur.
+-------------------------------------
+P55 :
+1. Créer une classe « Jeu » qui représente le plateau de jeu où les joueurs se déplacent sur des cases
+Cette classe devra implémenter :
+	▪ Les variables privées :
+		▪ _joueurs (List<Joueur>)
+		▪ _plateau (List<CasePropriete>)
+	◼ Les propriétés publiques :
+		◼ Joueurs (Joueur[ ]) – L’ensemble des joueurs participants – Lecture seule
+		◼ Plateau (CasePropriete[ ]) – Représente le plateau de jeu via l’ensemble des cases qu’il contient – Lecture seule
+	◼ Un indexeur retournant une CasePropriete sur base de son numéro.
+	◼ Un indexeur retournant un Joueur sur base de son Pion.
+	◼ Un constructeur permettant d’obtenir un tableau de cases et initialiser la propriété Joueurs en une liste vide.
+	◼ Les méthodes :
+		◼ void AjouterJoueur(string nom, Pions pion) – Vérifie avant l’ajout si le pion a déjà été pris par un autre Joueur
+-------------------------------------
+P62 :
+1. Surcharger l’opérateur « + » de la classe « Joueur » afin que l’on puisse lui additionner un montant de type int pour augmenter son Solde, elle
+retournera le Joueur.
+2. Surcharger l’opérateur « + » de la classe « Joueur » afin que l’on puisse lui additionner une CasePropriete pour effectuer l’achat de celle-ci par le
+Joueur, elle retournera la propriété « Proprietes » du Joueur.
+-------------------------------------
+P73 :
+1. Créer la classe « Case » qui devra implémenter
+	◼ La variable membre privée :
+		visiteurs (List<Joueur>)
+	◼ Les propriétés publiques :
+		◼ Nom (string) – Lecture seule
+		◼ Visiteurs (Joueur[ ]) – Lecture seule
+	◼ Un constructeur qui initialise : la propriété « Nom » à l’aide d’un paramètre et initialise une List<Joueur> vide pour la variable _visiteurs.
+	◼ Les méthodes publiques :
+		◼ void AjouterVisiteur (Joueur visiteur) – Permet de regrouper les visiteurs d’une même case.
+		◼ void RetirerVisiteur (Joueur visiteur) – Permet de retirer un joueur de la liste des visiteurs de cette case.
+1. Faire hériter la classe « Case » de la classe « CasePropriete »
+	◼ Enlever les membres communs de la classe parent.
+-------------------------------------
