@@ -10,16 +10,16 @@ namespace Monopoly.Models
     internal class Tile
     {
         //props
-        public string Name { get; private set; } 
+        public string Name { get; private set; }
 
-		private List<Player> _visitors;
-		public Player[] Visitors
-		{
-			get 
-			{ 
-				return _visitors.ToArray(); 
-			}
-		}
+        private List<Player> _visitors;
+        public Player[] Visitors
+        {
+            get
+            {
+                return _visitors.ToArray();
+            }
+        }
 
         //ctor
         public Tile(string name)
@@ -29,14 +29,15 @@ namespace Monopoly.Models
         }
 
         //methods
-        public void AddVisitor(Player visitor) 
+        public void AddVisitor(Player visitor)
         {
+            if (_visitors.Contains(visitor)) return; // Exception msg
             _visitors.Add(visitor);
         }
 
         public void RemoveVisitor(Player visitor)
-        {
-            _visitors.Remove(visitor);
+        { 
+            if (!_visitors.Remove(visitor)) return; // Remove() returns a bool so we can use it for the eventual exception msg
         }
     }
 }

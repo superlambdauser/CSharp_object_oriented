@@ -10,19 +10,7 @@ namespace Monopoly.Models
 {
     internal class TerrainTile : Tile
     {
-        //private string? _name;
-        //public string Name
-        //{
-        //    get
-        //    {
-        //        return _name;
-        //    }
-        //    private set
-        //    {
-        //        _name = value;
-        //    }
-        //}
-        
+
         private TileColor _color;
         public TileColor Color
         {
@@ -35,7 +23,7 @@ namespace Monopoly.Models
                 _color = value;
             }
         }
-        
+
         private int _price;
         public int Price
         {

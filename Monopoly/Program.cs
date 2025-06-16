@@ -13,19 +13,19 @@ namespace Monopoly
             TerrainTile[] board =
             {
                 new TerrainTile("Patio", TileColor.Brown, 20),
-                new TerrainTile("Accueil", TileColor.Brown, 23),
-                new TerrainTile("Ascenceur droit", TileColor.LightBlue, 26),
-                new TerrainTile("Ascenceur gauche", TileColor.LightBlue, 26),
-                new TerrainTile("Toilette RDC", TileColor.LightBlue, 30),
-                new TerrainTile("Couloir 4ième étage", TileColor.Violet, 32),
-                new TerrainTile("Couloir 5ième étage", TileColor.Violet, 32),
-                new TerrainTile("Toilette 5ième étage", TileColor.Violet, 38),
-                new TerrainTile("Classe des WAD", TileColor.Orange, 42),
-                new TerrainTile("Classe des WEB", TileColor.Orange, 42),
-                new TerrainTile("Classe des Games", TileColor.Orange, 48),
-                new TerrainTile("Bureau Sonia", TileColor.DarkBlue, 26),
-                new TerrainTile("Bureau Nicole", TileColor.DarkBlue, 26),
-                new TerrainTile("Bureau Laure", TileColor.DarkBlue, 30),
+                new TerrainTile("Reception", TileColor.Brown, 23),
+                new TerrainTile("Right elevator", TileColor.LightBlue, 26),
+                new TerrainTile("Left elevator", TileColor.LightBlue, 26),
+                new TerrainTile("Ground floor toilets", TileColor.LightBlue, 30),
+                new TerrainTile("4th floor corridor", TileColor.Violet, 32),
+                new TerrainTile("5th floor corridor", TileColor.Violet, 32),
+                new TerrainTile("5th floor toilets", TileColor.Violet, 38),
+                new TerrainTile("WAD classroom", TileColor.Orange, 42),
+                new TerrainTile("WEB classroom", TileColor.Orange, 42),
+                new TerrainTile("GAMES classroom", TileColor.Orange, 48),
+                new TerrainTile("Sonias's office", TileColor.DarkBlue, 26),
+                new TerrainTile("Nicole's office", TileColor.DarkBlue, 26),
+                new TerrainTile("Laure's office", TileColor.DarkBlue, 30),
             };
 
             Game monopoly = new Game(board);
@@ -55,15 +55,16 @@ namespace Monopoly
                 Console.WriteLine($"What pawn do you want to choose, {playerName} ?");
                 string[] pawnList = Enum.GetNames<Pawn>();
 
+                string userInput;
+
                 foreach (string pawn in pawnList)
                 {
                     Console.WriteLine($"\t- {pawn}");
                 }
-
-                string userInput;
                 
                 do userInput = Console.ReadLine();
                 while (userInput == null);
+
                 Pawn playerPawnChoice = Enum.Parse<Pawn>(userInput);
 
                 // Add player to the game :
@@ -82,8 +83,7 @@ namespace Monopoly
 
                 // Round treatment :
                 Console.WriteLine($"{currentPlayer.Name}'s turn. They are with pawn {currentPlayer.Pawn} is on the tile n°{currentTile.Name}.\n Press enter to roll the dice.");
-                Console.ReadLine();
-
+                currentTile.RemoveVisitor(currentPlayer); // remove player from tile BEFORE getting currentTile
                 bool playAgain = currentPlayer.Move(diceNumber); // make the player moove & keep track of an eventual double roll
                 currentTile = monopoly[currentPlayer.Position]; // update current tile
 
@@ -92,12 +92,15 @@ namespace Monopoly
                 {
                     Console.WriteLine("Great! Double!");
                     Console.WriteLine($"Player {currentPlayer.Name} with pawn {currentPlayer.Pawn} is on the tile n°{currentTile.Name}.");
+                    currentTile.RemoveVisitor(currentPlayer);
                     playAgain = currentPlayer.Move(diceNumber);
                     currentTile = monopoly[currentPlayer.Position];
+                    currentTile.AddVisitor(currentPlayer);
                 }
 
                 Console.WriteLine($"Player {currentPlayer.Name} with pawn {currentPlayer.Pawn} is on the tile n°{currentTile.Name}.");
                 
+                // Next round :
                 roundPlayer++; 
             }
 
