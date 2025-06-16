@@ -92,3 +92,7 @@ P73 :
 1. Faire hériter la classe « Case » de la classe « CasePropriete »
 	◼ Enlever les membres communs de la classe parent.
 -------------------------------------
+P79 :
+1. 1. Modifier la classe « Jeu » afin que la propriété « Plateau » ne travaille qu’avec la classe « Case ».
+-------------------------------------
+

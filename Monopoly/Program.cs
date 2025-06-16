@@ -82,7 +82,7 @@ namespace Monopoly
                 TerrainTile currentTile = monopoly[currentPlayer.Position];
 
                 // Round treatment :
-                Console.WriteLine($"{currentPlayer.Name}'s turn. They are with pawn {currentPlayer.Pawn} is on the tile n°{currentTile.Name}.\n Press enter to roll the dice.");
+                Console.WriteLine($"{currentPlayer.Name}'s turn. They are with pawn {currentPlayer.Pawn} is on the tile {currentTile.Name}.\n Press enter to roll the dice.");
                 currentTile.RemoveVisitor(currentPlayer); // remove player from tile BEFORE getting currentTile
                 bool playAgain = currentPlayer.Move(diceNumber); // make the player moove & keep track of an eventual double roll
                 currentTile = monopoly[currentPlayer.Position]; // update current tile
@@ -91,14 +91,14 @@ namespace Monopoly
                 while (playAgain)
                 {
                     Console.WriteLine("Great! Double!");
-                    Console.WriteLine($"Player {currentPlayer.Name} with pawn {currentPlayer.Pawn} is on the tile n°{currentTile.Name}.");
+                    Console.WriteLine($"Player {currentPlayer.Name} with pawn {currentPlayer.Pawn} is on the tile {currentTile.Name}.");
                     currentTile.RemoveVisitor(currentPlayer);
                     playAgain = currentPlayer.Move(diceNumber);
                     currentTile = monopoly[currentPlayer.Position];
                     currentTile.AddVisitor(currentPlayer);
                 }
 
-                Console.WriteLine($"Player {currentPlayer.Name} with pawn {currentPlayer.Pawn} is on the tile n°{currentTile.Name}.");
+                Console.WriteLine($"Player {currentPlayer.Name} with pawn {currentPlayer.Pawn} is on the tile {currentTile.Name}.");
                 
                 // Next round :
                 roundPlayer++; 

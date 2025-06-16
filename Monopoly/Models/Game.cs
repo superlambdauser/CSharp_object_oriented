@@ -12,7 +12,7 @@ namespace Monopoly.Models
     {
 
         private List<Player> _players;
-        private List<TerrainTile> _board;
+        private List<Tile> _board;
 
         public Player[] Players
         {
@@ -21,7 +21,7 @@ namespace Monopoly.Models
                 return _players.ToArray();
             }
         }
-        public TerrainTile[] Board
+        public Tile[] Board
         {
             get
             {
@@ -32,7 +32,7 @@ namespace Monopoly.Models
 
         // Indexers :
         // an indexer that returns a Tile from its "number" (place) on the board
-        public TerrainTile this[int numTile]
+        public Tile this[int numTile]
         {
             get
             {
@@ -54,10 +54,10 @@ namespace Monopoly.Models
             }
         }
 
-        public Game(TerrainTile[] tileProp) // shortcut for quick constructor : ctor
+        public Game(Tile[] tileProp) // shortcut for quick constructor : ctor
         {
             _players = new List<Player>();
-            _board = new List<TerrainTile>().ToList();
+            _board = new List<Tile>(tileProp);
         }
 
         public void AddPlayer(string name, Pawn pawn)
@@ -70,8 +70,8 @@ namespace Monopoly.Models
                     return;
                 }
 
-                _players.Add(new Player(name, pawn));
             }
+            _players.Add(new Player(name, pawn));
         }
     }
 }
