@@ -31,7 +31,7 @@ namespace Monopoly.Models
         }
 
         // Indexers :
-        // an indexer that returns a Tile from its "number" (place) on the board
+        // An indexer that returns a Tile from its "number" (place) on the board
         public Tile this[int numTile]
         {
             get
@@ -41,7 +41,7 @@ namespace Monopoly.Models
             }
         }
 
-        // an indexer that returns a Player from its Pawn :
+        // An indexer that returns a Player from its Pawn :
         public Player? this[Pawn pawn] // player is nullable? if no player chose the pawn
         {
             get
