@@ -34,12 +34,10 @@ namespace Monopoly.Models
             if (_visitors.Contains(visitor)) return; // Exception msg
             _visitors.Add(visitor);
         }
-
         public void RemoveVisitor(Player visitor)
         { 
             if (!_visitors.Remove(visitor)) return; // Remove() returns a bool so we can use it for the eventual exception msg
         }
-
         public abstract void Activate(Player visitor);
     }
 }

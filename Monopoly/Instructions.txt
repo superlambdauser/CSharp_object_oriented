@@ -109,3 +109,14 @@ P89
 		1. Si la case n’a pas de propriétaire, le Joueur visiteur doit l’acheter
 		2. Si la case a un propriétaire, soit le Joueur visiteur n’est pas le propriétaire et doit séjourner, sinon rien ne se passe
 -------------------------------------
+P102 :
+1. Définir l’interface « IVisiteur », afin de limiter l’accès à la méthode « Activer » et l’implémenter à la class « Case ».
+2. Définir l’interface « IProprietaire » afin de limiter l’accès aux méthodes « Hypothequer » et « Deshypothequer », et la propriété
+« EstHypotequee ».
+3. Implémenter l’interface à la classe « CasePropriete ».
+4. Ajouter les méthodes publiques suivante à la classe :
+	◼ void Hypothequer () – Permet d’hypothéquer la propriété. Change le booléen de EstHypothequee à true, et le Propriétaire reçoit 50%
+	du Prix
+	◼ void Deshypothequer () – Permet de retirer l’hypothèque de la propriété. Change le booléen de EstHypothequee à false, et le
+	Propriétaire paye 60% du Prix
+-------------------------------------
