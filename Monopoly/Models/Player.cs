@@ -9,7 +9,6 @@ namespace Monopoly.Models
 {
     internal class Player
     {
-        #region var & properties
         private int _position = 0;
         private int _account = 0;
 
@@ -42,20 +41,18 @@ namespace Monopoly.Models
                 }
             }
         }
+
+        // Auto properties :
         public List<TerrainTile> RealEstates
         {
             get; // autoproperty -> returns the property's value.
             // no private set here because it implies you may reset the whole array (not just its content)
         }
-
-        // Auto properties :
         public string? Name { get; set; }
         public Pawn Pawn { get; set; }
         // -- not best practice -- 
-        #endregion
 
-        #region methods
-        #region constructors
+
         public Player(string name, Pawn pawn)
         {
             Name = name;
@@ -65,7 +62,6 @@ namespace Monopoly.Models
             RealEstates = new List<TerrainTile>();
         }
 
-        #endregion
 
         public bool Move(int diceNumber)
         {
@@ -81,7 +77,6 @@ namespace Monopoly.Models
 
             return diceResults[0] == diceResults[1];
         }
-
         public void GetPaid(int amount)
         {
             if (amount > 0)
@@ -89,7 +84,6 @@ namespace Monopoly.Models
                 Account += amount;
             }
         }
-
         public bool Spend(int price)
         {
             bool transactionFailed;
@@ -106,7 +100,6 @@ namespace Monopoly.Models
                 return transactionFailed;
             }
         }
-
         public void AddRealEstate(TerrainTile tile)
         {
             if (tile != null && this == tile.Owner)
@@ -114,6 +107,7 @@ namespace Monopoly.Models
                 RealEstates.Add(tile);
             }
         }
+
 
         // Operator overloading :
         // an operator overload "Player(left) + int amount(right)" that allows you to use "+" to add amound to Player's account
@@ -129,6 +123,5 @@ namespace Monopoly.Models
         //    left.AddRealEstate(right);
         //    return left.RealEstates;
         //}
-        #endregion
     }
 }

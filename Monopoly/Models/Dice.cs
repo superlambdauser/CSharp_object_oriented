@@ -9,11 +9,13 @@ namespace Monopoly.Models
     internal static class Dice
     {
         //
+        public static Random rng = new Random();
         private static int _minValue = 1;
         private static int _maxValue = 6;
         // !! This is a D6 -> we can reuse this to roll other dices,
         // simply change MinValue and MaxValue in the calling of the class
         // using Dice.(Min/Max)Value properties :
+
 
         public static int MinValue
         {
@@ -33,7 +35,6 @@ namespace Monopoly.Models
                 }
             }
         }
-
         public static int MaxValue
         {
             get
@@ -53,7 +54,6 @@ namespace Monopoly.Models
             }
         }
 
-        public static Random rng = new Random();
 
         public static int[] Roll(int diceNumber) // array[]
         {

@@ -9,10 +9,10 @@ namespace Monopoly.Models
 {
     internal abstract  class Tile
     {
-        //props
-        public string Name { get; private set; }
-
         private List<Player> _visitors;
+
+
+        public string Name { get; private set; }
         public Player[] Visitors
         {
             get
@@ -21,14 +21,14 @@ namespace Monopoly.Models
             }
         }
 
-        //ctor
+
         public Tile(string name)
         {
             Name = name;
             _visitors = new List<Player>();
         }
 
-        //methods
+
         public void AddVisitor(Player visitor)
         {
             if (_visitors.Contains(visitor)) return; // Exception msg
@@ -40,6 +40,6 @@ namespace Monopoly.Models
             if (!_visitors.Remove(visitor)) return; // Remove() returns a bool so we can use it for the eventual exception msg
         }
 
-        public abstract void Activate();
+        public abstract void Activate(Player visitor);
     }
 }

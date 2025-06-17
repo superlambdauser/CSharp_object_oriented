@@ -14,6 +14,7 @@ namespace Monopoly.Models
         private List<Player> _players;
         private List<Tile> _board;
 
+
         public Player[] Players
         {
             get
@@ -30,6 +31,7 @@ namespace Monopoly.Models
             // true read only : no private set
         }
 
+
         // Indexers :
         // An indexer that returns a Tile from its "number" (place) on the board
         public Tile this[int numTile]
@@ -40,7 +42,6 @@ namespace Monopoly.Models
                 return _board[numTile];
             }
         }
-
         // An indexer that returns a Player from its Pawn :
         public Player? this[Pawn pawn] // player is nullable? if no player chose the pawn
         {
@@ -54,11 +55,13 @@ namespace Monopoly.Models
             }
         }
 
+
         public Game(Tile[] tileProp) // shortcut for quick constructor : ctor
         {
             _players = new List<Player>();
             _board = new List<Tile>(tileProp);
         }
+
 
         public void AddPlayer(string name, Pawn pawn)
         {
