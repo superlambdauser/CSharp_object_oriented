@@ -45,8 +45,6 @@ namespace Monopoly.Models
                 if (value > 0) _price = value;
             }
         }
-
-
         public bool IsMortgaged
         {
             get

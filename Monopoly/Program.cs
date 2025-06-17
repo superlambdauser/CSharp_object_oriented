@@ -9,38 +9,41 @@ namespace Monopoly
     {
         static void Main(string[] args)
         {
-            // Create game & boardgame (co-dependants)
+            // Create game & boardgame (co-dependants):
+            int diceNumber = 2;
+            int roundsNumber = 40;
+
             Tile[] board =
             {
-                new Tile("Start"),
+                //new Tile("Start"),
                 new TerrainTile("Patio", TileColor.Brown, 20),
                 new TerrainTile("Reception", TileColor.Brown, 23),
                 new TerrainTile("Right elevator", TileColor.LightBlue, 26),
                 new TerrainTile("Left elevator", TileColor.LightBlue, 26),
                 new TerrainTile("Ground floor toilets", TileColor.LightBlue, 30),
-                new Tile("Prison"),
+                //new Tile("Prison"),
                 new TerrainTile("4th floor corridor", TileColor.Violet, 32),
                 new TerrainTile("5th floor corridor", TileColor.Violet, 32),
                 new TerrainTile("5th floor toilets", TileColor.Violet, 38),
                 new TerrainTile("WAD classroom", TileColor.Orange, 42),
                 new TerrainTile("WEB classroom", TileColor.Orange, 42),
                 new TerrainTile("GAMES classroom", TileColor.Orange, 48),
-                new Tile("Free parking"),
+                //new Tile("Free parking"),
                 new TerrainTile("Sonias's office", TileColor.DarkBlue, 26),
                 new TerrainTile("Nicole's office", TileColor.DarkBlue, 26),
                 new TerrainTile("Laure's office", TileColor.DarkBlue, 30),
             };
-
             Game monopoly = new Game(board);
 
-            int diceNumber = 2;
-            int roundsNumber = 40;
 
-            // Ask how many players will play :
+            // Ask how many players will play (and parse data):
             int playerNumber;
+            do
+            {
+                Console.WriteLine("How many players are you ?");
+            }
+            while (!int.TryParse(Console.ReadLine(), out playerNumber) || playerNumber < 2 || playerNumber > 6); 
 
-            do Console.WriteLine("How many players are you ?");
-            while (!int.TryParse(Console.ReadLine(), out playerNumber) || playerNumber < 2 || playerNumber > 6);
 
             // For each player, ask data :
             do
@@ -52,7 +55,7 @@ namespace Monopoly
                 {
                     Console.WriteLine("What's you name?");
                     playerName = Console.ReadLine();
-                } while (playerName == null);
+                } while (playerName == null); // ...parsing data
 
                 // Choose pawn
                 Console.WriteLine($"What pawn do you want to choose, {playerName} ?");
@@ -63,21 +66,22 @@ namespace Monopoly
                 foreach (string pawn in pawnList)
                 {
                     Console.WriteLine($"\t- {pawn}");
-                }
+                } // display choice
 
-                do userInput = Console.ReadLine();
-                while (userInput == null);
+                do
+                {
+                    userInput = Console.ReadLine();
+                } while (userInput == null); // ...parsing data
 
                 Pawn playerPawnChoice = Enum.Parse<Pawn>(userInput);
 
                 // Add player to the game :
-                monopoly.AddPlayer(userInput, playerPawnChoice);
+                monopoly.AddPlayer(playerName, playerPawnChoice);
             } while (monopoly.Players.Length < playerNumber);
 
 
-            // Play, count rounds & keep tracks :
+            // Play, count rounds & keep track :
             int roundPlayer = 0;
-
             while (roundPlayer < roundsNumber) // while game has not exceeded max game rounds
             {
                 // Get who's turn it is & where they currently are :
@@ -86,6 +90,7 @@ namespace Monopoly
 
                 // Round treatment :
                 Console.WriteLine($"{currentPlayer.Name}'s turn. They are with pawn {currentPlayer.Pawn} is on the tile {currentTile.Name}.\n Press enter to roll the dice.");
+                Console.ReadLine();
 
                 TerrainTile terrainTile; // every instance of TerrainTile is polymorph because it can be stored in a variable of TerrainTile Type AND Tyle Type.
                 if (currentTile is TerrainTile)
@@ -103,11 +108,13 @@ namespace Monopoly
                 {
                     Console.WriteLine("Great! Double!");
                     Console.WriteLine($"Player {currentPlayer.Name} with pawn {currentPlayer.Pawn} is on the tile {currentTile.Name}.");
+                    Console.ReadLine();
 
                     if (currentTile is TerrainTile)
                     {
                         terrainTile = (TerrainTile)currentTile;
                         Console.WriteLine($"You are on the property of {((terrainTile.Owner is null) ? "no one." : $"{terrainTile.Owner.Name}")}");
+                        Console.ReadLine();
                     }
 
                     currentTile.RemoveVisitor(currentPlayer);
@@ -117,11 +124,13 @@ namespace Monopoly
                 }
 
                 Console.WriteLine($"Player {currentPlayer.Name} with pawn {currentPlayer.Pawn} is on the tile {currentTile.Name}.");
-                
+                Console.ReadLine();
+
                 if (currentTile is TerrainTile)
                 {
                     terrainTile = (TerrainTile)currentTile;
                     Console.WriteLine($"You are on the property of {((terrainTile.Owner is null) ? "no one." : $"{terrainTile.Owner.Name}")}");
+                    Console.ReadLine();
                 }
 
                 // Next round :
