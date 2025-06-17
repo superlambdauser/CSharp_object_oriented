@@ -122,6 +122,6 @@ namespace Monopoly.Models
         //    right.Buy(left);
         //    left.AddRealEstate(right);
         //    return left.RealEstates;
-        //}
+        //} // -> IMPOSSIBLE to use it as is bc Buy() has become private and can't be called in another class
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Monopoly.Enums;
+using System;
 
 
 namespace Monopoly.Models
@@ -28,17 +29,6 @@ namespace Monopoly.Models
             get
             {
                 return _price;
-            }
-            private set
-            {
-                if (value > 0) _price = value;
-            }
-        }
-        public int StayPrice
-        {
-            get
-            {
-                return (_price / 4);
             }
             private set
             {
@@ -93,12 +83,13 @@ namespace Monopoly.Models
                 }
             }
         }
-        public void Stay(Player visitor)
+        private void Stay(Player visitor)
         {
+            int stayingPrice = Price / 4;
             if (visitor != null)
             {   if (visitor.Account >= Price)
                 {
-                    visitor.Spend(StayPrice);
+                    visitor.Spend(stayingPrice);
                 }
                 else
                 {
@@ -109,15 +100,14 @@ namespace Monopoly.Models
         }
         public override void Activate(Player visitor)
         {
-            if (Owner == null || IsMortgaged)
+            if ((Owner == null || IsMortgaged) && visitor.Account >= Price)
             {
-                this.Buy(visitor);
+                Buy(visitor);
             }
-            else if (!(Owner == visitor))
+            else if (!visitor.RealEstates.Contains(this)) // we try to check "deeper" tu enhance security (ideally should use DB) 
             {
-                this.Stay(visitor);
+                Stay(visitor);
             }
-
         }
     }
 }
