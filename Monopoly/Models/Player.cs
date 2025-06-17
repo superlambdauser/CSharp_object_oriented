@@ -123,12 +123,12 @@ namespace Monopoly.Models
             return left;
         }
 
-        public static List<TerrainTile> operator +(Player left, TerrainTile right)
-        {
-            right.Buy(left);
-            left.AddRealEstate(right);
-            return left.RealEstates;
-        }
+        //public static List<TerrainTile> operator +(Player left, TerrainTile right)
+        //{
+        //    right.Buy(left);
+        //    left.AddRealEstate(right);
+        //    return left.RealEstates;
+        //}
         #endregion
     }
 }

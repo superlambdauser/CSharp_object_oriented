@@ -95,4 +95,17 @@ P73 :
 P79 :
 1. 1. Modifier la classe « Jeu » afin que la propriété « Plateau » ne travaille qu’avec la classe « Case ».
 -------------------------------------
-
+P89
+1. Modifier la classe « Case » pour qu’elle soit abstraite et qu’elle implémente :
+	◼ La méthode publique abstraite :
+		◼ void Activer(Joueur visiteur) – Actuellement, nous ne savons pas réellement définir l’action de notre case, cela dépendra de la case
+		elle-même
+2. Ajouter à la classe « CasePropriete » la méthode privée:
+	◼ void Sejourner(Joueur visiteur) : Le joueur qui visite la case doit payer un droit de séjour du quart du prix de la propriété (arrondi vers l’entier).
+3. La méthode « Acheter » doit devenir privée
+(et mettre en commentaire la surcharge d’opérateur « + » entre les classes « Joueur » et « CasePropriete » )
+4. Redéfinir la méthode Activer dans la class « CasePropriete » :
+	◼ Elle doit vérifier :
+		1. Si la case n’a pas de propriétaire, le Joueur visiteur doit l’acheter
+		2. Si la case a un propriétaire, soit le Joueur visiteur n’est pas le propriétaire et doit séjourner, sinon rien ne se passe
+-------------------------------------

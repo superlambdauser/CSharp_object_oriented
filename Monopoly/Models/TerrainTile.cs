@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using Monopoly.Enums;
+﻿using Monopoly.Enums;
 
 
 namespace Monopoly.Models
@@ -36,6 +31,19 @@ namespace Monopoly.Models
                 if (value > 0) _price = value;
             }
         }
+
+        public int StayPrice
+        {
+            get
+            {
+                return (_price / 4);
+            }
+            private set
+            {
+                if (value > 0) _price = value;
+            }
+        }
+
 
         private bool _isMortgaged;
         public bool IsMortgaged
@@ -75,7 +83,7 @@ namespace Monopoly.Models
 
 
         //methods
-        public void Buy(Player buyer)
+        private void Buy(Player buyer)
         {
             if ((Owner == null || IsMortgaged) && buyer != null && buyer.Account >= Price)
             // !!! here i double check if buyer has the money so that i don't uselessly call a Method() (opti)
@@ -88,5 +96,32 @@ namespace Monopoly.Models
             }
         }
 
+        public void Stay(Player visitor)
+        {
+            if (visitor != null)
+            {   if (visitor.Account >= Price)
+                {
+                    visitor.Spend(StayPrice);
+                } // make the player buy & take the bool that returns from it
+                else
+                {
+                    visitor.Spend(visitor.Account);
+                    Console.WriteLine("Think about mortgaging your properties.");
+                }
+            }
+        }
+
+        public override void Activate(Player visitor)
+        {
+            if (Owner == null || IsMortgaged)
+            {
+                this.Buy(visitor);
+            }
+            else if (!(Owner == visitor))
+            {
+                this.Stay(visitor);
+            }
+
+        }
     }
 }

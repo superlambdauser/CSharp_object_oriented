@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Models
 {
-    internal class Tile
+    internal abstract  class Tile
     {
         //props
         public string Name { get; private set; }
@@ -39,5 +39,7 @@ namespace Monopoly.Models
         { 
             if (!_visitors.Remove(visitor)) return; // Remove() returns a bool so we can use it for the eventual exception msg
         }
+
+        public abstract void Activate();
     }
 }
